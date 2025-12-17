@@ -1,6 +1,6 @@
-import { InstrumentType } from "@/types/InstrumentTypes";
+import { InstrumentResponse } from "@/types/InstrumentTypes";
 
-export const IntrumentData: InstrumentType[] = [
+export const IntrumentData: InstrumentResponse[] = [
   {
     token: "12345",
     symbol: "GOLD NOV 125700 PE",

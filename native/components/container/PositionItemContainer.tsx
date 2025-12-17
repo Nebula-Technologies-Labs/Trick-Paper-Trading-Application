@@ -40,14 +40,14 @@ const PositionItemContainer: FC<PositionItemContainerProps> = ({ item }) => {
 
       {/*  */}
       <View className="flex-row items-center justify-between">
-        <AppText className="text-textMuted" textSize={14}>
+        <AppText className="text-textMuted" textSize={12}>
           {item.exchangeType}
         </AppText>
         <View className="flex-row itesm-center gap-2">
-          <AppText className="text-textMuted" textSize={14}>
+          <AppText className="text-textMuted" textSize={12}>
             LTP
           </AppText>
-          <AppText className="text-textSecondary" textSize={14}>
+          <AppText className="text-textSecondary" textSize={12}>
             {item.average}
           </AppText>
         </View>

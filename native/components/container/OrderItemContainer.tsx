@@ -34,14 +34,14 @@ const OrderItemContainer: FC<OrderItemContainerProps> = ({ item }) => {
 
       {/*  */}
       <View className="flex-row items-center justify-between">
-        <AppText className="text-textPrimary" textSize={16}>
+        <AppText className="text-textPrimary" textSize={14}>
           {item.symbol}
         </AppText>
         <View className="flex-row itesm-center gap-1">
-          <AppText className="text-textMuted" textSize={16}>
+          <AppText className="text-textMuted" textSize={14}>
             Avg.
           </AppText>
-          <AppText className="text-textPrimary" textSize={16}>
+          <AppText className="text-textPrimary" textSize={14}>
             {item.average}
           </AppText>
         </View>
@@ -49,14 +49,14 @@ const OrderItemContainer: FC<OrderItemContainerProps> = ({ item }) => {
 
       {/*  */}
       <View className="flex-row items-center justify-between">
-        <AppText className="text-textMuted" textSize={14}>
+        <AppText className="text-textMuted" textSize={12}>
           {item.exchangeType}
         </AppText>
         <View className="flex-row itesm-center gap-2">
-          <AppText className="text-textMuted" textSize={14}>
+          <AppText className="text-textMuted" textSize={12}>
             {item.tradeType}
           </AppText>
-          <AppText className="text-textMuted" textSize={14}>
+          <AppText className="text-textMuted" textSize={12}>
             {item.orderOption}
           </AppText>
         </View>

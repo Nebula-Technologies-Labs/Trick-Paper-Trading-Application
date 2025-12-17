@@ -24,6 +24,7 @@
     "@types/mongodb": "^4.0.6",
     "@types/mongoose": "^5.11.96",
     "@types/redis": "^4.0.10",
+    "@types/speakeasy": "^2.0.10",
     "axios": "^1.13.2",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
@@ -41,7 +42,9 @@
     "node-cron": "^4.2.1",
     "redis": "^5.10.0",
     "rotating-file-stream": "^1.4.6",
+    "smartapi-javascript": "^1.0.27",
     "socket.io": "^4.8.1",
+    "speakeasy": "^2.0.0",
     "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.6.3"
   },
@@ -54,7 +57,8 @@
     "@config": "src/config",
     "@services": "src/services",
     "@data": "src/data",
-    "@helpers": "src/helpers"
+    "@helpers": "src/helpers",
+    "@core": "src/core"
   },
   "devDependencies": {
     "@types/node": "^25.0.2"

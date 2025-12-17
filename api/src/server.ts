@@ -17,7 +17,17 @@ import logger from "@util/logger";
 
 // Load .env Enviroment Variables to process.env
 
-env.load(["DB_URL", "PORT", "SECRET", "INSTRUMENTS_URL", "REDIS_URL"]);
+env.load([
+  "DB_URL",
+  "PORT",
+  "SECRET",
+  "INSTRUMENTS_URL",
+  "REDIS_URL",
+  "SMART_API_KEY",
+  "SMART_API_CLIENT_ID",
+  "SAMRT_API_CLIENT_TOPTP",
+  "SMART_API_CLIENT_PASSWORD",
+]);
 
 // Instantiate an Express Application
 
@@ -76,3 +86,7 @@ server.listen(process.env.PORT, () =>
 // Schedulars
 import { fetchInstrumentScheduler } from "@helpers/scheduler";
 fetchInstrumentScheduler();
+
+// SmartApi Connection
+import TickEngine from "@core/TMS/tick.engine";
+TickEngine();

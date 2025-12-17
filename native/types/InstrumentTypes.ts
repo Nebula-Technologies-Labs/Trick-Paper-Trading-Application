@@ -1,4 +1,4 @@
-export interface InstrumentType {
+export interface InstrumentResponse {
   token: string;
   symbol: string;
   name: string;

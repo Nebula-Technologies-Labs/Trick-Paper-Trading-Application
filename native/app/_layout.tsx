@@ -1,9 +1,12 @@
 import "@/global.css";
 import { Stack } from "expo-router";
-import {StatusBar} from 'expo-status-bar'
+import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
+import socket from "@/config/socket.config";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,18 +18,24 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    socket.connect();
+  });
+
+  useEffect(() => {
     if (loaded) SplashScreen.hideAsync();
   }, [loaded]);
 
   if (!loaded) return null;
   return (
     <>
-      <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="search" />
-        <Stack.Screen name="tradebook" />
-      </Stack>
+      <Provider store={store}>
+        <StatusBar style="dark" />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="search" />
+          <Stack.Screen name="tradebook" />
+        </Stack>
+      </Provider>
     </>
   );
 }

@@ -1,16 +1,17 @@
-import { InstrumentType } from "@/types/InstrumentTypes";
+import { InstrumentResponse } from "@/types/InstrumentTypes";
 import { FC } from "react";
-import { View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import AppText from "../Common/AppText";
 import { Feather } from "@expo/vector-icons";
 
 interface SearchedItemContainerProps {
-  item: InstrumentType;
+  item: InstrumentResponse;
+  onSelect: () => void;
 }
 
-const SearchedItemContainer: FC<SearchedItemContainerProps> = ({ item }) => {
+const SearchedItemContainer: FC<SearchedItemContainerProps> = ({ item , onSelect }) => {
   return (
-    <View className="flex-row items-center justify-between gap-4 border-b border-border py-4 px-4">
+    <TouchableOpacity className="flex-row items-center justify-between gap-4 border-b border-border py-4 px-4" onPress={onSelect}>
       <View className="px-2 py-1 bg-brandBg">
         <AppText className="text-brand">{item.exchangeSegment}</AppText>
       </View>
@@ -22,10 +23,10 @@ const SearchedItemContainer: FC<SearchedItemContainerProps> = ({ item }) => {
           {item.name}
         </AppText>
       </View>
-      <View className="py-1 px-1 border-2 border-brand">
-        <Feather name="plus" size={20} color={"#538BE3"} />
-      </View>
-    </View>
+      <Pressable className="py-1 px-1 border-2 border-brand">
+        <Feather name="plus" size={14} color={"#538BE3"} />
+      </Pressable>
+    </TouchableOpacity>
   );
 };
 

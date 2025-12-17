@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-let io;
+let io: Server;
 
 export const Socket = (server) => {
   io = new Server(server, {
@@ -9,10 +9,10 @@ export const Socket = (server) => {
     },
     transports: ["websocket"],
   });
-  if (io) console.log("Web Socket Start....");
+  if (io) console.log("Web Socket Initialized....");
 };
 
-export const ws = () => {
+export const ioServer = () => {
   if (!io) throw new Error("Error Start Web Socket ");
   return io;
 };
