@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-type orderType = "BUY" | "SELL";
+export type orderType = "BUY" | "SELL";
 type transactionType = "MARKET" | "LIMIT" | "ST-L";
 type tradeType = "MIS" | "CNC";
 type orderStatus = "PENDING" | "COMPLETED" | "CANCELLED" | "REJECTED";
@@ -8,7 +8,7 @@ type orderStatus = "PENDING" | "COMPLETED" | "CANCELLED" | "REJECTED";
 export interface OrderDTO {
   userId: Schema.Types.ObjectId;
   token: string;
-  quantity: Number;
+  quantity: number;
   symbol: string;
   name: string;
   exchangeSegment: string;

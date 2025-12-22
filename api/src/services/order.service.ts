@@ -1,7 +1,7 @@
 import { OrderDTO, OrderEngineArguements } from "types/Order";
 import InstrumentModel from "@models/instrumentModel";
 import OrderModel from "@models/orderModel";
-import { tickMap } from "@core/TMS/tick.engine";
+import { tickMap } from "@services/ticks.service";
 import userModel from "@models/userModel";
 
 export const OrderCreateEngine = async ({

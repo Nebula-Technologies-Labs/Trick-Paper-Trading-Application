@@ -55,17 +55,11 @@ const validateInstruments = (instruments): InstrumentDTO[] => {
 };
 
 const ValidateSymbol = (symbol: string): string => {
-  const REGEX =
-    /^([A-Z]+)(\d{1,2})?(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(\d{2})(\d+)?(CE|PE|FUT)$/;
-  const normalized = symbol.replace(/\s+/g, "").toUpperCase();
-  const match = normalized.match(REGEX);
+  const regex = /^([A-Z]+)(\d{2})([A-Z]{3})(\d{2})(\d+)?(CE|PE|FUT)?$/;
+  const match = symbol.match(regex);
   if (!match) return symbol;
 
-  const [, name, day, month, year, strike, type] = match;
+  const [, name, _day, mon, _year, strike, type] = match;
 
-  const dayStr = day ? day.padStart(2, "0") : "01";
-  const fullYear = `20${year}`;
-  const monthName = month;
-
-  return `${name} ${dayStr} ${monthName} ${strike} ${type}`;
+  return [name, _day, mon, strike, type].filter(Boolean).join(" ");
 };

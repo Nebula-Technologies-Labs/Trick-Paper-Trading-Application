@@ -83,10 +83,13 @@ server.listen(process.env.PORT, () =>
   console.info("Server listening on port ", process.env.PORT)
 );
 
-// Schedulars
+import { storeInstrument } from "@helpers/instrument";
+storeInstrument();
+
+// Scheduler for fetching instruments every morning @08:30 AM
 import { fetchInstrumentScheduler } from "@helpers/scheduler";
 fetchInstrumentScheduler();
 
 // SmartApi Connection
-import TickEngine from "@core/TMS/tick.engine";
+import TickEngine from "@services/ticks.service";
 TickEngine();
