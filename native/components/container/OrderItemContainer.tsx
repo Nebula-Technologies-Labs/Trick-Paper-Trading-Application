@@ -1,20 +1,27 @@
 import { OrderResponse } from "@/types/OrderTypes";
 import { FC } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import AppText from "../Common/AppText";
 import { Feather } from "@expo/vector-icons";
 import { FormatNumber, FormatTime } from "@/utils/Formatter";
 
 interface OrderItemContainerProps {
   item: OrderResponse | null;
+  onSelect: () => void;
 }
 
-const OrderItemContainer: FC<OrderItemContainerProps> = ({ item }) => {
+const OrderItemContainer: FC<OrderItemContainerProps> = ({
+  item,
+  onSelect,
+}) => {
   const stoplossOrder = item?.transactionType === "ST-L";
   const limitOrder = item?.transactionType === "LIMIT";
   const buyOrder = item?.orderType === "BUY";
   return (
-    <View className="flex-col gap-2 py-4 border-b border-border">
+    <TouchableOpacity
+      className="flex-col gap-2 py-4 border-b border-border"
+      onPress={onSelect}
+    >
       {/*  */}
       <View className="flex-row items-center justify-between">
         <View className="flex flex-row items-center gap-2">
@@ -93,7 +100,7 @@ const OrderItemContainer: FC<OrderItemContainerProps> = ({ item }) => {
           </AppText>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

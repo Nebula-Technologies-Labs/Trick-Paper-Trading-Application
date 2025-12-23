@@ -6,7 +6,6 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
-import socket from "@/config/socket.config";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,10 +14,6 @@ export default function RootLayout() {
     inter: require("@/assets/fonts/Inter_18pt-Regular.ttf"),
     interBold: require("@/assets/fonts/Inter_18pt-Bold.ttf"),
     interSemiBold: require("@/assets/fonts/Inter_18pt-SemiBold.ttf"),
-  });
-
-  useEffect(() => {
-    socket.connect();
   });
 
   useEffect(() => {
