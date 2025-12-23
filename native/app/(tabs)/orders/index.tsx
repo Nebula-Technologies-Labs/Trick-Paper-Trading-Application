@@ -1,15 +1,20 @@
 import AppText from "@/components/Common/AppText";
 import OrderItemContainer from "@/components/Container/OrderItemContainer";
+import OrderModel from "@/components/Models/OrderModel";
 import { useAppSelector } from "@/redux/hook";
 import { OrderResponse } from "@/types/OrderTypes";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
+import { Modal } from "react-native";
 import { FlatList, Pressable, View } from "react-native";
 
 export default function OrderScreen() {
   const Tabs = ["Open", "Executed"];
   const [activeTab, setActivetab] = useState<string>("Executed");
+  const [selectedOrder, setSelectedOrder] = useState<OrderResponse | null>(
+    null
+  );
   const { orders } = useAppSelector((state) => state.order);
   const [activeOrders, setActiveOrder] = useState<
     OrderResponse[] | null | undefined
@@ -73,10 +78,26 @@ export default function OrderScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerClassName="px-6"
           renderItem={({ item }) => {
-            return <OrderItemContainer item={item ?? []} />;
+            return (
+              <OrderItemContainer
+                item={item ?? []}
+                onSelect={() => setSelectedOrder(item)}
+              />
+            );
           }}
         />
       </View>
+      <Modal
+        visible={!!selectedOrder}
+        transparent
+        onRequestClose={() => setSelectedOrder(null)}
+        animationType="slide"
+      >
+        <OrderModel
+          order={selectedOrder}
+          onClose={() => setSelectedOrder(null)}
+        />
+      </Modal>
     </View>
   );
 }

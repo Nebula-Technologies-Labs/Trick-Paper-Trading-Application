@@ -1,16 +1,24 @@
 import { PositionResponse } from "@/types/PositionType";
 import { FC } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import AppText from "../Common/AppText";
 import AppTickPrice from "../Common/AppTickPrice";
 import { FormatNumber } from "@/utils/Formatter";
+import PositionChange from "../Common/PositionChange";
 
 interface PositionItemContainerProps {
+  onSelect: () => void;
   item: PositionResponse;
 }
-const PositionItemContainer: FC<PositionItemContainerProps> = ({ item }) => {
+const PositionItemContainer: FC<PositionItemContainerProps> = ({
+  item,
+  onSelect,
+}) => {
   return (
-    <View className="flex-col gap-2 py-2 border-b border-border">
+    <TouchableOpacity
+      className="flex-col gap-2 py-2 border-b border-border"
+      onPress={onSelect}
+    >
       {/*  */}
       <View className="flex-row items-center justify-between">
         <View className="flex flex-row items-center gap-2">
@@ -40,16 +48,19 @@ const PositionItemContainer: FC<PositionItemContainerProps> = ({ item }) => {
         <AppText className="text-textPrimary" textSize={16}>
           {item.symbol}
         </AppText>
-        <AppText className="text-sucess" textSize={16}>
-          +0.25
-        </AppText>
+        <PositionChange position={item} textSize={16} />
       </View>
 
       {/*  */}
       <View className="flex-row items-center justify-between">
-        <AppText className="text-textMuted" textSize={12}>
-          {item.exchangeSegment}
-        </AppText>
+        <View className="flex-row gap-2 items-center">
+          <AppText className="text-textMuted" textSize={12}>
+            {item.exchangeSegment}
+          </AppText>
+          <AppText className="text-textMuted" textSize={12}>
+            {item.type}
+          </AppText>
+        </View>
         <View className="flex-row itesm-center gap-2">
           <AppText className="text-textMuted" textSize={12}>
             LTP
@@ -57,7 +68,7 @@ const PositionItemContainer: FC<PositionItemContainerProps> = ({ item }) => {
           <AppTickPrice item={item} className="text-textMuted" />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

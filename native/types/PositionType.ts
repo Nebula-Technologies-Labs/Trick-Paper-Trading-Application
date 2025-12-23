@@ -16,4 +16,5 @@ export interface PositionResponse {
   status: positionStatus;
   tradeType: tradeType;
   exchangeSegment: string;
+  _id: string;
 }

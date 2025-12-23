@@ -1,46 +1,35 @@
-import AppModal from "@/components/Common/AppModal";
-import AppText from "@/components/Common/AppText";
-import { InstrumentResponse } from "@/types/InstrumentTypes";
-import { Feather } from "@expo/vector-icons";
-import React, { useEffect } from "react";
 import { Pressable, TouchableOpacity, View } from "react-native";
+import AppModal from "../Common/AppModal";
+import AppText from "../Common/AppText";
+import AppTickPrice from "../Common/AppTickPrice";
 import AppTickChange from "../Common/AppTickChange";
 import AppTickChangePercent from "../Common/AppTickChangePercent";
-import AppTickPrice from "../Common/AppTickPrice";
 import { router } from "expo-router";
-import socket from "@/config/socket.config";
+import { Feather } from "@expo/vector-icons";
+import { OrderResponse } from "@/types/OrderTypes";
+import { FC } from "react";
 
-interface InstrumentModalProps {
-  instrument: InstrumentResponse | null;
+interface OrderModalProps {
   onClose: () => void;
+  order: OrderResponse | null;
 }
 
-export default function InstrumentModal({
-  instrument,
-  onClose,
-}: InstrumentModalProps) {
-  useEffect(() => {
-    socket.emit("subscribe", {
-      token: instrument?.token,
-      exchangeType: instrument?.exchangeSegment,
-    });
-  } , [instrument?.exchangeSegment, instrument?.token]);
-  
+const OrderModel: FC<OrderModalProps> = ({ onClose, order }) => {
   return (
     <AppModal onPress={onClose}>
       <Pressable className="flex-col gap-6 rounded-t-3xl bg-background pb-12 px-8 py-4">
         {/* 1 row */}
         <View className="flex-col gap-2">
           <AppText textSize={18} className="text-textPrimary">
-            {instrument?.symbol}
+            {order?.symbol}
           </AppText>
           <View className="flex-row gap-2">
             <AppText className="text-textSecondary">
-              {instrument?.exchangeSegment}
+              {order?.exchangeSegment}
             </AppText>
-            <AppTickPrice item={instrument} />
-            <AppTickChange item={instrument} className="text-textMuted" />
-            <AppTickChangePercent item={instrument} className="text-textMuted" />
+            <AppTickPrice item={order} />
+            <AppTickChange item={order} className="text-textMuted" />
+            <AppTickChangePercent item={order} className="text-textMuted" />
           </View>
         </View>
 
@@ -48,28 +37,31 @@ export default function InstrumentModal({
         <View className="flex-row gap-4">
           <TouchableOpacity
             className="flex-1 items-center justify-center flex-row rounded bg-buttonPrimary py-4"
-            onPress={() => router.push(`/order/${instrument?.token}/buy`)}
+            onPress={() =>
+              router.push(
+                `/order/${order?.token}/${order?.orderType.toLowerCase()}`
+              )
+            }
           >
             <AppText
               className="text-white"
               textSize={16}
               style={{ fontFamily: "interSemiBold" }}
             >
-              BUY
+              Repeat Order
             </AppText>
           </TouchableOpacity>
-          <TouchableOpacity
-            className="flex-1 items-center justify-center flex-row rounded bg-buttonDanger py-4"
-            onPress={() => router.push(`/order/${instrument?.token}/sell`)}
-          >
-            <AppText
-              className="text-white"
-              textSize={16}
-              style={{ fontFamily: "interSemiBold" }}
-            >
-              SELL
-            </AppText>
-          </TouchableOpacity>
+          {order?.orderStatus === "PENDING" && (
+            <TouchableOpacity className="flex-1 items-center justify-center flex-row rounded bg-buttonDanger py-4">
+              <AppText
+                className="text-white"
+                textSize={16}
+                style={{ fontFamily: "interSemiBold" }}
+              >
+                Cancel
+              </AppText>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* 3 row */}
@@ -90,4 +82,6 @@ export default function InstrumentModal({
       </Pressable>
     </AppModal>
   );
-}
+};
+
+export default OrderModel;

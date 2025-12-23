@@ -17,4 +17,5 @@ export interface OrderResponse {
   token: string;
   limit: number;
   triggerPrice: number;
+  _id: string;
 }

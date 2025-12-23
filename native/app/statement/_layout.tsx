@@ -11,7 +11,7 @@ const StatementLayout = () => {
     dispatch(fetchPositionStatement());
   }, [dispatch]);
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <Slot />
     </SafeAreaView>
   );

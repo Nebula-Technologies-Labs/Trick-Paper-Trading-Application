@@ -1,21 +1,26 @@
+import AppPositionChange from "@/components/Common/AppPositionChange";
 import AppText from "@/components/Common/AppText";
 import PositionItemContainer from "@/components/Container/PositionItemContainer";
+import PositionModel from "@/components/Models/PositionModel";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { fetchPositions } from "@/redux/slices/PositionSlice";
+import { PositionResponse } from "@/types/PositionType";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, View } from "react-native";
+import { FlatList, Modal, Pressable, View } from "react-native";
 
 export default function PositionScreen() {
   const dispatch = useAppDispatch();
-  const Tabs = ["Holdings", "Positions"];
-  const [activeTab, setActiveTab] = useState("Holdings");
+  const Tabs = ["Positions"];
+  const [activeTab, setActiveTab] = useState("Positions");
   const { positions } = useAppSelector((state) => state.position);
+  const [selectedPosition, setSelectedPosition] =
+    useState<PositionResponse | null>(null);
 
   useEffect(() => {
     dispatch(fetchPositions());
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <View className="flex-1 py-4">
@@ -50,9 +55,7 @@ export default function PositionScreen() {
               <AppText className="text-textMuted" textSize={14}>
                 Total P&L
               </AppText>
-              <AppText className="text-sucess" textSize={24}>
-                +1.75
-              </AppText>
+              <AppPositionChange textSize={18} />
             </View>
           </View>
         </View>
@@ -74,11 +77,28 @@ export default function PositionScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerClassName="px-6"
             renderItem={({ item }) => {
-              return <PositionItemContainer item={item} />;
+              return (
+                <PositionItemContainer
+                  item={item}
+                  onSelect={() => setSelectedPosition(item)}
+                />
+              );
             }}
           />
         </View>
       </View>
+
+      <Modal
+        transparent
+        visible={!!selectedPosition}
+        animationType="slide"
+        onRequestClose={() => setSelectedPosition(null)}
+      >
+        <PositionModel
+          onClose={() => setSelectedPosition(null)}
+          position={selectedPosition}
+        />
+      </Modal>
     </View>
   );
 }
