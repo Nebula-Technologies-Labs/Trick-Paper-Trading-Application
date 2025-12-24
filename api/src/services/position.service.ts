@@ -57,10 +57,9 @@ export const positionService = async ({
 
   const ltp = Number(tick.last_traded_price);
 
-  const margin =
-    ((ltp / 100) * (order.quantity / instrument.lotSize)) / user.margin;
+  const margin = ((ltp / 100) * order.quantity) / user.margin;
 
-  const brokerage = ((ltp / 100) * (order.quantity / instrument.lotSize)) / 100;
+  const brokerage = ((ltp / 100) * order.quantity) / 100;
 
   const totalAmount = margin + brokerage;
 
@@ -183,6 +182,15 @@ export const positionService = async ({
   existedPosition.totalAmount -= order.price * order.quantity;
   existedPosition.average =
     existedPosition.totalAmount / existedPosition.quantity;
+
+  // STORE PARTIAL EXIT IN DB
+  await PositionModel.create({
+    ...existedPosition,
+    quantity: order.quantity, // exited qty only
+    exitedAt: new Date(),
+    exitedAverage: order.price,
+    status: "EXITED",
+  });
 
   await savePosition(userId, token, existedPosition);
 
