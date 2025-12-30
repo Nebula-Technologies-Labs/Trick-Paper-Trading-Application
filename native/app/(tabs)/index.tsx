@@ -48,7 +48,7 @@ const HomeScreen = () => {
         />
       </View>
 
-      <View className="bg-background px-4 py-4 flex-1">
+      <View className="bg-background px-4 pt-4 flex-1">
         {/* Search & Add Section */}
         <Pressable
           className="flex-row gap-2 items-center justify-between px-4 py-4 rounded border border-border"
@@ -80,7 +80,7 @@ const HomeScreen = () => {
             </AppText>
           </View>
         ) : (
-          <View>
+          <View className="flex-1">
             <FlatList
               data={watchlists}
               keyExtractor={(item) => item.token}

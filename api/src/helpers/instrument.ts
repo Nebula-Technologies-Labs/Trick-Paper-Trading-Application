@@ -17,15 +17,13 @@ export const storeInstrument = async () => {
 
     console.log(`${filtered.length} instruments after filtering`);
 
+    await redis.del(`trick:instruments`);
+    console.log("Redis Instruments deleted...");
     await InstrumentModel.deleteMany({});
-    console.log("Inserted Instruments deleted ...");
+    console.log("DB Instruments deleted ...");
 
     for (const item of filtered) {
-      await redis.hSet(
-        `${process.env.REDIS_APP}:instruments`,
-        item.token,
-        JSON.stringify(item)
-      );
+      await redis.hSet(`trick:instruments`, item.token, JSON.stringify(item));
 
       await InstrumentModel.create({
         token: item.token,
@@ -44,7 +42,6 @@ export const storeInstrument = async () => {
     console.log("Error storing Redis instruments...");
   }
 };
-
 
 const fetchInstruments = async () => {
   try {

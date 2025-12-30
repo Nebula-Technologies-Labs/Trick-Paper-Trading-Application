@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-type userRole = "USER" | "ADMIN";
+type userRole = "USER";
 
 export interface UserDTO {
   _id: Schema.Types.ObjectId;
@@ -12,6 +12,9 @@ export interface UserDTO {
   phoneNumber: string;
   adhaarNumber: string;
   pancardNumber: string;
-  margin: number;
+  optMargin: number;
+  futMargin: number;
+  optBrokerage: number;
+  futBrokerage: number;
   availableFunds: number;
 }

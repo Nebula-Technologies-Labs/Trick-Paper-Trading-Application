@@ -7,7 +7,10 @@ export interface UserResponse {
   phoneNumber: string;
   adhaarNumber: string;
   pancardNumber: string;
-  margin: number;
+  optMargin: number;
+  futMargin: number;
+  optBrokerage: number;
+  futBrokerage: number;
   availableFunds: number;
   _id: string;
   createdAt: string;

@@ -29,7 +29,7 @@ export default function OrderScreen() {
   }, [activeTab, orders]);
 
   return (
-    <View className="flex-1 py-4">
+    <View className="flex-1 pt-4">
       {/*  */}
       <View className="flex-row gap-6 px-4">
         {Tabs.map((item, index) => {

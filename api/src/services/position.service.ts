@@ -41,7 +41,7 @@ const getPosition = async (
   token: string
 ): Promise<PositionDTO | null> => {
   const data = await redis.hGet(redisKey(userId), token);
-  return data ? JSON.parse(data) : null;
+  return data ? JSON.parse(String(data)) : null;
 };
 
 /**
@@ -57,7 +57,7 @@ export const positionService = async ({
 
   const ltp = Number(tick.last_traded_price);
 
-  const margin = ((ltp / 100) * order.quantity) / user.margin;
+  const margin = ((ltp / 100) * order.quantity);
 
   const brokerage = ((ltp / 100) * order.quantity) / 100;
 
